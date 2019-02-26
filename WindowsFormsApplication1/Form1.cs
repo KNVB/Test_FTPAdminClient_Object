@@ -16,5 +16,22 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }     
+
+        private void addToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConnectToServerForm ctsf = new ConnectToServerForm();
+            DialogResult dialogresult = ctsf.ShowDialog();
+            ctsf.Dispose();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+        }
     }
 }
