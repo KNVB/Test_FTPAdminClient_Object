@@ -1,6 +1,5 @@
 ﻿using System;
-using WindowsFormsApplication1;
-
+using ObjectLibrary;
 namespace ConsoleApplication1
 {
     class Program

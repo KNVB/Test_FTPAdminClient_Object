@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{0ABFE75A-60B6-45AA-94EE-2B94CFC8AB4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp-easy-RSA-PEM", "..\CSharp-easy-RSA-PEM-master\CSharp-easy-RSA-PEM\CSharp-easy-RSA-PEM\CSharp-easy-RSA-PEM.csproj", "{056A5520-3311-4558-B4E4-AC2711F334AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Load-Encrypt-Decrypt-Save", "..\CSharp-easy-RSA-PEM-master\CSharp-easy-RSA-PEM\Load-Encrypt-Decrypt-Save\Load-Encrypt-Decrypt-Save.csproj", "{AE4EA9CA-04EF-4185-8EB2-9BE2CC8BD959}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectLibrary", "ObjectLibrary\ObjectLibrary.csproj", "{BD53FC41-7F7A-40BD-A2CD-B4EDFFC9FDAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,18 @@ Global
 		{0ABFE75A-60B6-45AA-94EE-2B94CFC8AB4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ABFE75A-60B6-45AA-94EE-2B94CFC8AB4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0ABFE75A-60B6-45AA-94EE-2B94CFC8AB4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{056A5520-3311-4558-B4E4-AC2711F334AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{056A5520-3311-4558-B4E4-AC2711F334AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{056A5520-3311-4558-B4E4-AC2711F334AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{056A5520-3311-4558-B4E4-AC2711F334AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE4EA9CA-04EF-4185-8EB2-9BE2CC8BD959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE4EA9CA-04EF-4185-8EB2-9BE2CC8BD959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE4EA9CA-04EF-4185-8EB2-9BE2CC8BD959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE4EA9CA-04EF-4185-8EB2-9BE2CC8BD959}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD53FC41-7F7A-40BD-A2CD-B4EDFFC9FDAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD53FC41-7F7A-40BD-A2CD-B4EDFFC9FDAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD53FC41-7F7A-40BD-A2CD-B4EDFFC9FDAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD53FC41-7F7A-40BD-A2CD-B4EDFFC9FDAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
