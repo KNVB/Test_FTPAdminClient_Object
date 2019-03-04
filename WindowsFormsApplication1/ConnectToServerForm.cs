@@ -16,5 +16,16 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }       
+
+        private void ConnectToServerForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+        }
     }
 }

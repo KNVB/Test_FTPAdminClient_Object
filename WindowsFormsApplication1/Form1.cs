@@ -18,20 +18,24 @@ namespace WindowsFormsApplication1
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            popupConnectToServerDiaglog();
         }     
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ConnectToServerForm ctsf = new ConnectToServerForm();
-            DialogResult dialogresult = ctsf.ShowDialog();
-            ctsf.Dispose();
+            popupConnectToServerDiaglog();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
             this.Dispose();
+        }
+        private void popupConnectToServerDiaglog()
+        {
+            ConnectToServerForm ctsf = new ConnectToServerForm();
+            DialogResult dialogresult = ctsf.ShowDialog();
+            ctsf.Dispose();
         }
     }
 }

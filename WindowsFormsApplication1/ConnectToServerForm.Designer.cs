@@ -37,6 +37,7 @@
             this.password = new System.Windows.Forms.TextBox();
             this.portNo = new System.Windows.Forms.NumericUpDown();
             this.loginButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.portNo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,16 +118,28 @@
             // 
             // loginButton
             // 
-            this.loginButton.Location = new System.Drawing.Point(100, 168);
+            this.loginButton.Location = new System.Drawing.Point(29, 167);
             this.loginButton.Name = "loginButton";
             this.loginButton.Size = new System.Drawing.Size(75, 23);
             this.loginButton.TabIndex = 9;
             this.loginButton.Text = "Connect";
             this.loginButton.UseVisualStyleBackColor = true;
             // 
+            // cancelButton
+            // 
+            this.cancelButton.Location = new System.Drawing.Point(181, 167);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 10;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            // 
             // ConnectToServerForm
             // 
             this.ClientSize = new System.Drawing.Size(280, 211);
+            this.ControlBox = false;
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.loginButton);
             this.Controls.Add(this.portNo);
             this.Controls.Add(this.password);
@@ -138,6 +151,7 @@
             this.Controls.Add(this.label3);
             this.Name = "ConnectToServerForm";
             this.Text = "Connect To Server";
+            this.Load += new System.EventHandler(this.ConnectToServerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.portNo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -158,5 +172,6 @@
         private System.Windows.Forms.TextBox password;
         private System.Windows.Forms.NumericUpDown portNo;
         private System.Windows.Forms.Button loginButton;
+        private System.Windows.Forms.Button cancelButton;
     }
 }
