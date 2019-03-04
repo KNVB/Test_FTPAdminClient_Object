@@ -10,9 +10,6 @@ namespace ObjectLibrary
 {
     class MessageCoder
     {
-        ICryptoTransform encryptor, decryptor;
-        CryptoStream crypto_Stream = null;
-        MemoryStream memStream = null;
         RijndaelManaged Crypto = null;
         UTF8Encoding Byte_Transform = new UTF8Encoding();
         byte[] messageKeyArray, ivTextArray;
@@ -20,15 +17,15 @@ namespace ObjectLibrary
         public string ivText { get; set; }
         public void init()
         {
-            
             messageKeyArray = System.Convert.FromBase64String(messageKey);
             ivTextArray = System.Convert.FromBase64String(ivText);
         }
+        
         public string encode(string plainText)
         {
-            memStream = new MemoryStream();
+            MemoryStream memStream = new MemoryStream();
             byte[] PlainBytes = Byte_Transform.GetBytes(plainText);
-         
+            CryptoStream crypto_Stream = null;
             try
             {
                 Crypto = new RijndaelManaged();
@@ -36,7 +33,7 @@ namespace ObjectLibrary
                 Crypto.IV = ivTextArray;
                 //Calling the method create encryptor method Needs both the Key and IV these have to be from the original Rijndael call
                 //If these are changed nothing will work right.
-                encryptor = Crypto.CreateEncryptor(Crypto.Key, Crypto.IV);
+                ICryptoTransform encryptor = Crypto.CreateEncryptor(Crypto.Key, Crypto.IV);
 
                 //The big parameter here is the cryptomode.write, you are writing the data to memory to perform the transformation
                 crypto_Stream = new CryptoStream(memStream, encryptor, CryptoStreamMode.Write);
@@ -62,8 +59,8 @@ namespace ObjectLibrary
             Crypto.IV = ivTextArray;
             Crypto.Mode = System.Security.Cryptography.CipherMode.CBC;
             Crypto.Padding = System.Security.Cryptography.PaddingMode.None;
-            decryptor = Crypto.CreateDecryptor();
-            return System.Text.Encoding.UTF8.GetString(decryptor.TransformFinalBlock(encryptBytes, 0, encryptBytes.Length));
+            ICryptoTransform decryptor = Crypto.CreateDecryptor();
+            return Byte_Transform.GetString(decryptor.TransformFinalBlock(encryptBytes, 0, encryptBytes.Length));
         }
     }
 }
