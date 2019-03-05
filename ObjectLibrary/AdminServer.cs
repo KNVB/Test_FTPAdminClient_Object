@@ -21,6 +21,8 @@ namespace ObjectLibrary
         }
         public bool login(string userName, string password)
         {
-         }
+            bool result=true;
+            return result;
+        }
     }
 }
