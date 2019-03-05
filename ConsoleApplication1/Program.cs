@@ -8,7 +8,10 @@ namespace ConsoleApplication1
         {
             AdminServer adminServer=new AdminServer();
 
-            adminServer.login("localhost", 4466, "admin", "password");
+            if (adminServer.connect("localhost", 4466))
+            {
+                adminServer.login("admin", "password");
+            }
             Console.ReadLine();
         }
     }

@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="AdminServer.cs" />
     <Compile Include="Login.cs" />
-    <Compile Include="MessageCoder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +60,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminServer.cs.old" />
+    <Compile Include="MessageCoder.cs.old" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
