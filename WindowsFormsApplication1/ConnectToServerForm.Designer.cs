@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label3 = new System.Windows.Forms.Label();
-            this.serverName1 = new System.Windows.Forms.TextBox();
+            this.serverName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.userName = new System.Windows.Forms.TextBox();
@@ -50,12 +50,12 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "Server name:";
             // 
-            // serverName1
+            // serverName
             // 
-            this.serverName1.Location = new System.Drawing.Point(85, 11);
-            this.serverName1.Name = "serverName1";
-            this.serverName1.Size = new System.Drawing.Size(171, 22);
-            this.serverName1.TabIndex = 1;
+            this.serverName.Location = new System.Drawing.Point(85, 11);
+            this.serverName.Name = "serverName";
+            this.serverName.Size = new System.Drawing.Size(171, 22);
+            this.serverName.TabIndex = 1;
             // 
             // label4
             // 
@@ -124,6 +124,7 @@
             this.loginButton.TabIndex = 9;
             this.loginButton.Text = "Connect";
             this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // cancelButton
             // 
@@ -147,7 +148,7 @@
             this.Controls.Add(this.userName);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.serverName1);
+            this.Controls.Add(this.serverName);
             this.Controls.Add(this.label3);
             this.Name = "ConnectToServerForm";
             this.Text = "Connect To Server";
@@ -161,10 +162,9 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox serverName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox serverName1;
+        private System.Windows.Forms.TextBox serverName;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox userName;

@@ -37,5 +37,10 @@ namespace WindowsFormsApplication1
             DialogResult dialogresult = ctsf.ShowDialog();
             ctsf.Dispose();
         }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }
