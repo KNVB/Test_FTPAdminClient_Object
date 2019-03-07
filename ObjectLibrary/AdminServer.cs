@@ -16,32 +16,45 @@ namespace ObjectLibrary
         bool firstConnect = true;
         private AutoResetEvent _messageReceivedEvent = new AutoResetEvent(false);
         private JavaScriptSerializer jss;
-        private KeyGenerator keyGen;
+        private MessageCoder messageCoder;
         private ServerResponse serverResponse;
         private WebSocket _websocket;
+        private string errorMessage = "";
         private static readonly ILog logger = LogManager.GetLogger(typeof(AdminServer));
+        public int portNo;
+        public string serverName  { get; set; }
         public AdminServer()
         {
             jss = new JavaScriptSerializer();
-            keyGen=new KeyGenerator();
+            messageCoder = new MessageCoder();
             string log4netConfigFilePath = AppDomain.CurrentDomain.BaseDirectory + "log4net.config";
             XmlConfigurator.Configure(new FileInfo(log4netConfigFilePath));
         }
         public bool connect(string hostName, int portNo)
         {
             bool result = false;
+            this.portNo = portNo;
+            this.serverName = hostName;
             string URL = "ws://" + hostName + ":" + portNo + "/websocket";
             firstConnect = true;
+            errorMessage = "";
             _websocket = new WebSocket(URL);
             _websocket.Opened += new EventHandler(websocket_Opened);
             _websocket.Error += new EventHandler<SuperSocket.ClientEngine.ErrorEventArgs>(websocket_Error);
             _websocket.Closed += new EventHandler(websocket_Closed);
             _websocket.MessageReceived += new EventHandler<MessageReceivedEventArgs>(websocket_MessageReceived);
             _websocket.Open();
+            
             _messageReceivedEvent.WaitOne();
-            //Console.WriteLine("back to connect method");
-            result = true;
+            if (String.IsNullOrEmpty(errorMessage))
+                result = true;
+            else
+                result = false;
             return result;
+        }
+        public void disConnect()
+        {
+            _websocket.Close();
         }
         public bool login(string userName, string password)
         {
@@ -49,7 +62,7 @@ namespace ObjectLibrary
             Login login = new Login();
             login.password = password;
             login.userName = userName;
-            _websocket.Send(keyGen.aesEncode(jss.Serialize(login)));
+            _websocket.Send(messageCoder.aesEncode(jss.Serialize(login)));
             _messageReceivedEvent.WaitOne();
             if (serverResponse.responseCode == 0)
             {
@@ -67,11 +80,13 @@ namespace ObjectLibrary
         private void websocket_Closed(object sender, EventArgs e)
         {
             logger.Debug("Connection to admin. server is closed");
+            errorMessage = e.ToString();
             _messageReceivedEvent.Set();
         }
         private void websocket_Error(object sender, SuperSocket.ClientEngine.ErrorEventArgs e)
         {
             logger.Debug("An error occur:" + e.ToString());
+            errorMessage = e.ToString();
             _messageReceivedEvent.Set();
         }
         private void websocket_Opened(object sender, EventArgs e)
@@ -85,14 +100,14 @@ namespace ObjectLibrary
             string decodedMessage="";
             if (firstConnect)
             {
-                decodedMessage = keyGen.decodeRSAMessage(e.Message);
+                decodedMessage = messageCoder.decodeRSAMessage(e.Message);
                 dynamic AESObject = jss.Deserialize<dynamic>(decodedMessage);
-                keyGen.initAESCodec(AESObject["messageKey"], AESObject["ivText"]);
+                messageCoder.initAESCodec(AESObject["messageKey"], AESObject["ivText"]);
                 firstConnect = false;
             }
             else
             {
-                decodedMessage = keyGen.aesDecode(e.Message);
+                decodedMessage = messageCoder.aesDecode(e.Message);
                 serverResponse = jss.Deserialize<ServerResponse>(decodedMessage);
             }
             logger.Debug("Decoded server response:" + decodedMessage);
@@ -101,7 +116,7 @@ namespace ObjectLibrary
         private void sendRSAKey()
         {
             logger.Debug("Send RSA Key");
-            _websocket.Send(keyGen.getRSAPublicKey());
-        }
+            _websocket.Send(messageCoder.getRSAPublicKey());
+        }        
     }
 }

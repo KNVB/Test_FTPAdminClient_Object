@@ -15,9 +15,10 @@ namespace ConsoleApplication1
             {
                 if (adminServer.login("admin1", "password"))
                 {
-                    
+                   
                 }
-            }         
+                adminServer.disConnect();
+            }
             Console.ReadLine();
         }
     }

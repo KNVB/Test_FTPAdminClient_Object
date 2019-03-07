@@ -13,14 +13,14 @@ using System.Text;
 
 namespace ObjectLibrary
 {
-    public class KeyGenerator
+    public class MessageCoder
     {
         int RSAKeySize = 2048;
         AsymmetricCipherKeyPair rsaKeyPair;
         IBufferedCipher aesCipher=null;
         ICipherParameters cipherParameters;
         UTF8Encoding Byte_Transform = new UTF8Encoding();
-        public KeyGenerator()
+        public MessageCoder()
         {
             RsaKeyPairGenerator g = new RsaKeyPairGenerator();
             AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
@@ -74,7 +74,6 @@ namespace ObjectLibrary
         }
         public string aesDecode(string cipherText)
         {
-            
             byte[]encryptBytes = System.Convert.FromBase64String(cipherText);
             byte[] comparisonBytes = new byte[aesCipher.GetOutputSize(encryptBytes.Length)];
             

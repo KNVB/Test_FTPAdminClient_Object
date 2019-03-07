@@ -1,4 +1,7 @@
-﻿namespace WindowsFormsApplication1
+﻿using System;
+using System.Windows.Forms;
+
+namespace WindowsFormsApplication1
 {
     partial class ConnectToServerForm
     {
@@ -98,6 +101,7 @@
             this.password.PasswordChar = '*';
             this.password.Size = new System.Drawing.Size(171, 22);
             this.password.TabIndex = 7;
+            this.password.KeyDown += password_KeyDown;
             // 
             // portNo
             // 
@@ -157,7 +161,9 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
+        }    
+
+
 
         #endregion
 
