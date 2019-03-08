@@ -1,8 +1,8 @@
 ﻿using log4net;
 using log4net.Config;
 
-using SuperSocket.ClientEngine;
 using System;
+using System.Collections;
 using System.IO;
 using System.Threading;
 using System.Web.Script.Serialization;
@@ -76,7 +76,18 @@ namespace ObjectLibrary
             }
             return result;
         }
+        public FtpServerInfo getInitialFtpServerInfo()
+        {
+            FtpServerInfo result=null;
+            Request request = new Request();
+            request.action = "GetInitialFtpServerInfo";
+            _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
+            _messageReceivedEvent.WaitOne();
 
+            result= jss.Deserialize<FtpServerInfo>(jss.Serialize(serverResponse.returnObjects["ftpServerInfo"]));
+            
+            return result;
+        }
         private void websocket_Closed(object sender, EventArgs e)
         {
             logger.Debug("Connection to admin. server is closed");

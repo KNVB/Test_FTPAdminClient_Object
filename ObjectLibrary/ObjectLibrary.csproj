@@ -62,7 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessRightEntry.cs" />
     <Compile Include="AdminServer.cs" />
+    <Compile Include="BindingAddress.cs" />
+    <Compile Include="FtpServerInfo.cs" />
+    <Compile Include="FtpUserInfo.cs" />
     <Compile Include="MessageCoder.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +75,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Request.cs" />
     <Compile Include="ServerResponse.cs" />
   </ItemGroup>
   <ItemGroup>
