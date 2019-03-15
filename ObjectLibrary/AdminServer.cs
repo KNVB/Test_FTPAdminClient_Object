@@ -3,6 +3,7 @@ using log4net.Config;
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Web.Script.Serialization;
@@ -11,16 +12,18 @@ using WebSocket4Net;
 
 namespace ObjectLibrary
 {
-    public class AdminServer
+    public class AdminServer 
     {
         bool firstConnect = true;
         private AutoResetEvent _messageReceivedEvent = new AutoResetEvent(false);
+        private Exception websocketException;
         private JavaScriptSerializer jss;
         private MessageCoder messageCoder;
         private ServerResponse serverResponse;
-        private WebSocket _websocket;
+        private WebSocket _websocket=null;
         private string errorMessage = "";
         private static readonly ILog logger = LogManager.GetLogger(typeof(AdminServer));
+
         public int portNo;
         public string serverName  { get; set; }
         public AdminServer()
@@ -44,17 +47,23 @@ namespace ObjectLibrary
             _websocket.Closed += new EventHandler(websocket_Closed);
             _websocket.MessageReceived += new EventHandler<MessageReceivedEventArgs>(websocket_MessageReceived);
             _websocket.Open();
-            
+
             _messageReceivedEvent.WaitOne();
+
             if (String.IsNullOrEmpty(errorMessage))
                 result = true;
             else
+            {
                 result = false;
+                websocketException= new Exception(errorMessage);
+                throw websocketException;
+            }
             return result;
-        }
+        }       
         public void disConnect()
         {
-            _websocket.Close();
+            if (_websocket.State == WebSocketState.Open)
+                _websocket.Close();
         }
         public bool login(string userName, string password)
         {
@@ -64,15 +73,40 @@ namespace ObjectLibrary
             login.userName = userName;
             _websocket.Send(messageCoder.aesEncode(jss.Serialize(login)));
             _messageReceivedEvent.WaitOne();
-            if (serverResponse.responseCode == 0)
+            if (String.IsNullOrEmpty(errorMessage))
             {
-                logger.Info("Login to admin. server successfully.");
-                result = true;
+                if (serverResponse.responseCode == 0)
+                {
+                    logger.Info("Login to admin. server successfully.");
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                    logger.Debug("Login to admin. server failure.");
+                }
             }
             else
             {
                 result = false;
-                logger.Debug("Login to admin. server failure.");
+                websocketException = new Exception("An exception occurs when login to admin. server.");
+                throw websocketException;
+            }
+            return result;
+        }
+        public SortedDictionary<string, FtpServerInfo> getFTPServerList()
+        {
+            SortedDictionary<string, FtpServerInfo> result = null;
+            Request request = new Request();
+            request.action = "GetFTPServerList";
+            _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
+            _messageReceivedEvent.WaitOne();
+            if (String.IsNullOrEmpty(errorMessage))
+                result = jss.Deserialize<SortedDictionary<string, FtpServerInfo>>(jss.Serialize(serverResponse.returnObjects["ftpServerList"]));
+            else
+            {
+                websocketException = new Exception("An exception occurs when getting the FTP Server List.");
+                throw websocketException;
             }
             return result;
         }
@@ -83,21 +117,25 @@ namespace ObjectLibrary
             request.action = "GetInitialFtpServerInfo";
             _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
             _messageReceivedEvent.WaitOne();
-
-            result= jss.Deserialize<FtpServerInfo>(jss.Serialize(serverResponse.returnObjects["ftpServerInfo"]));
-            
+            if (String.IsNullOrEmpty(errorMessage))
+                result = jss.Deserialize<FtpServerInfo>(jss.Serialize(serverResponse.returnObjects["ftpServerInfo"]));
+            else
+            {
+                websocketException = new Exception("An exception occurs when getting the Initial FtpServer Info.");
+                throw websocketException;
+            }
             return result;
         }
         private void websocket_Closed(object sender, EventArgs e)
         {
-            logger.Debug("Connection to admin. server is closed");
             errorMessage = e.ToString();
+            logger.Debug("Websocket Connection is closed:"+ errorMessage);
             _messageReceivedEvent.Set();
         }
         private void websocket_Error(object sender, SuperSocket.ClientEngine.ErrorEventArgs e)
         {
-            logger.Debug("An error occur:" + e.ToString());
-            errorMessage = e.ToString();
+            errorMessage = e.Exception.Message;
+            logger.Debug("Websocket Error:" + errorMessage);
             _messageReceivedEvent.Set();
         }
         private void websocket_Opened(object sender, EventArgs e)
