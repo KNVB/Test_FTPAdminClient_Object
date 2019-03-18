@@ -55,8 +55,6 @@ namespace ObjectLibrary
             else
             {
                 result = false;
-                websocketException= new Exception(errorMessage);
-                throw websocketException;
             }
             return result;
         }       
@@ -83,12 +81,14 @@ namespace ObjectLibrary
                 else
                 {
                     result = false;
+                    disConnect();
                     logger.Debug("Login to admin. server failure.");
                 }
             }
             else
             {
                 result = false;
+                disConnect();
                 websocketException = new Exception("An exception occurs when login to admin. server.");
                 throw websocketException;
             }
@@ -105,6 +105,7 @@ namespace ObjectLibrary
                 result = jss.Deserialize<SortedDictionary<string, FtpServerInfo>>(jss.Serialize(serverResponse.returnObjects["ftpServerList"]));
             else
             {
+                disConnect();
                 websocketException = new Exception("An exception occurs when getting the FTP Server List.");
                 throw websocketException;
             }
@@ -121,6 +122,7 @@ namespace ObjectLibrary
                 result = jss.Deserialize<FtpServerInfo>(jss.Serialize(serverResponse.returnObjects["ftpServerInfo"]));
             else
             {
+                disConnect();
                 websocketException = new Exception("An exception occurs when getting the Initial FtpServer Info.");
                 throw websocketException;
             }
