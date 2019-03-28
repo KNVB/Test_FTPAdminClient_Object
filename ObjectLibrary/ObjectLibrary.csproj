@@ -65,6 +65,7 @@
     <Compile Include="AccessRightEntry.cs" />
     <Compile Include="AdminServer.cs" />
     <Compile Include="BindingAddress.cs" />
+    <Compile Include="FtpAdminUserInfo.cs" />
     <Compile Include="FtpServerInfo.cs" />
     <Compile Include="FtpUserInfo.cs" />
     <Compile Include="MessageCoder.cs" />

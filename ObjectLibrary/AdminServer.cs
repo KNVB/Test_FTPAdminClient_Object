@@ -2,7 +2,7 @@
 using log4net.Config;
 
 using System;
-using System.Collections;
+
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -63,6 +63,75 @@ namespace ObjectLibrary
             if (_websocket.State == WebSocketState.Open)
                 _websocket.Close();
         }
+        public SortedDictionary<string, FtpAdminUserInfo> getAdminUserList()
+        {
+            SortedDictionary<string, FtpAdminUserInfo> result = null;
+            Request request = new Request();
+            request.action = "GetAdminUserList";
+            _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
+            _messageReceivedEvent.WaitOne();
+            _messageReceivedEvent.WaitOne();
+            if (String.IsNullOrEmpty(errorMessage))
+                result = jss.Deserialize<SortedDictionary<string, FtpAdminUserInfo>>(jss.Serialize(serverResponse.returnObjects["adminUserList"]));
+            else
+            {
+                disConnect();
+                websocketException = new Exception("An exception occurs when getting the FTP Server List.");
+                throw websocketException;
+            }
+            return result;
+        }
+        public SortedDictionary<string, FtpServerInfo> getFTPServerList()
+        {
+            SortedDictionary<string, FtpServerInfo> result = null;
+            Request request = new Request();
+            request.action = "GetFTPServerList";
+            _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
+            _messageReceivedEvent.WaitOne();
+            if (String.IsNullOrEmpty(errorMessage))
+                result = jss.Deserialize<SortedDictionary<string, FtpServerInfo>>(jss.Serialize(serverResponse.returnObjects["ftpServerList"]));
+            else
+            {
+                disConnect();
+                websocketException = new Exception("An exception occurs when getting the FTP Server List.");
+                throw websocketException;
+            }
+            return result;
+        }
+        public List<string>getIPAddressList()
+        {
+            List<string> result = null;
+            Request request = new Request();
+            request.action = "GetIPAddressList";
+            _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
+            _messageReceivedEvent.WaitOne();
+            if (String.IsNullOrEmpty(errorMessage))
+                result = jss.Deserialize<List<string>> (jss.Serialize(serverResponse.returnObjects["ipAddressList"]));
+            else
+            {
+                disConnect();
+                websocketException = new Exception("An exception occurs when getting IP address List.");
+                throw websocketException;
+            }
+            return result;
+        }
+        public FtpServerInfo getInitialFtpServerInfo()
+        {
+            FtpServerInfo result=null;
+            Request request = new Request();
+            request.action = "GetInitialFtpServerInfo";
+            _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
+            _messageReceivedEvent.WaitOne();
+            if (String.IsNullOrEmpty(errorMessage))
+                result = jss.Deserialize<FtpServerInfo>(jss.Serialize(serverResponse.returnObjects["ftpServerInfo"]));
+            else
+            {
+                disConnect();
+                websocketException = new Exception("An exception occurs when getting the Initial FtpServer Info.");
+                throw websocketException;
+            }
+            return result;
+        }
         public bool login(string userName, string password)
         {
             bool result = true;
@@ -90,40 +159,6 @@ namespace ObjectLibrary
                 result = false;
                 disConnect();
                 websocketException = new Exception("An exception occurs when login to admin. server.");
-                throw websocketException;
-            }
-            return result;
-        }
-        public SortedDictionary<string, FtpServerInfo> getFTPServerList()
-        {
-            SortedDictionary<string, FtpServerInfo> result = null;
-            Request request = new Request();
-            request.action = "GetFTPServerList";
-            _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
-            _messageReceivedEvent.WaitOne();
-            if (String.IsNullOrEmpty(errorMessage))
-                result = jss.Deserialize<SortedDictionary<string, FtpServerInfo>>(jss.Serialize(serverResponse.returnObjects["ftpServerList"]));
-            else
-            {
-                disConnect();
-                websocketException = new Exception("An exception occurs when getting the FTP Server List.");
-                throw websocketException;
-            }
-            return result;
-        }
-        public FtpServerInfo getInitialFtpServerInfo()
-        {
-            FtpServerInfo result=null;
-            Request request = new Request();
-            request.action = "GetInitialFtpServerInfo";
-            _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
-            _messageReceivedEvent.WaitOne();
-            if (String.IsNullOrEmpty(errorMessage))
-                result = jss.Deserialize<FtpServerInfo>(jss.Serialize(serverResponse.returnObjects["ftpServerInfo"]));
-            else
-            {
-                disConnect();
-                websocketException = new Exception("An exception occurs when getting the Initial FtpServer Info.");
                 throw websocketException;
             }
             return result;
