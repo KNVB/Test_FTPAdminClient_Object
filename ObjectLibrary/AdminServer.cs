@@ -33,6 +33,26 @@ namespace ObjectLibrary
             string log4netConfigFilePath = AppDomain.CurrentDomain.BaseDirectory + "log4net.config";
             XmlConfigurator.Configure(new FileInfo(log4netConfigFilePath));
         }
+        public ServerResponse addFtpServer(FtpServerInfo ftpServerInfo)
+        {
+            Request request = new Request();
+            ServerResponse response=null;
+            request.action = "AddFtpServer";
+            request.Objects["ftpServerInfo"] = ftpServerInfo;
+            _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
+            _messageReceivedEvent.WaitOne();
+            if (String.IsNullOrEmpty(errorMessage))
+            {
+                response= jss.Deserialize<ServerResponse>(jss.Serialize(serverResponse));
+            }
+            else
+            {
+                disConnect();
+                websocketException = new Exception("An exception occurs when adding a FTP Server.");
+                throw websocketException;
+            }
+            return response;
+        }
         public bool connect(string hostName, int portNo)
         {
             bool result = false;
@@ -69,7 +89,6 @@ namespace ObjectLibrary
             Request request = new Request();
             request.action = "GetAdminUserList";
             _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
-            _messageReceivedEvent.WaitOne();
             _messageReceivedEvent.WaitOne();
             if (String.IsNullOrEmpty(errorMessage))
                 result = jss.Deserialize<SortedDictionary<string, FtpAdminUserInfo>>(jss.Serialize(serverResponse.returnObjects["adminUserList"]));

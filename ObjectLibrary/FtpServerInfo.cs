@@ -11,7 +11,7 @@ namespace ObjectLibrary
         public String passiveModePortRange { get; set; } = "";
         public String description { get; set; } = "New Server";
         public bool passiveModeEnabled { get; set; } = false;
-        public List<BindingAddress> bindingAddresses { get; set; } = new List<BindingAddress>();
+        public List<string> bindingAddresses { get; set; } = new List<string>();
         public SortedDictionary<String, FtpUserInfo> ftpUserInfoList { get; set; } = new SortedDictionary<String, FtpUserInfo>();
     }
 }
