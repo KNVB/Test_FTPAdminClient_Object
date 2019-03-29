@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="Request.cs" />
     <Compile Include="ServerResponse.cs" />
+    <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
