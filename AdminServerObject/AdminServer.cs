@@ -10,7 +10,7 @@ using System.Web.Script.Serialization;
 
 using WebSocket4Net;
 
-namespace ObjectLibrary
+namespace AdminServerObject
 {
     public class AdminServer 
     {

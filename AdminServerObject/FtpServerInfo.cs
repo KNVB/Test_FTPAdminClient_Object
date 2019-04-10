@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ObjectLibrary
+namespace AdminServerObject
 {
     public class FtpServerInfo
     {

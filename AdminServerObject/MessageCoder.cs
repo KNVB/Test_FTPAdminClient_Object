@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ObjectLibrary
+namespace AdminServerObject
 {
     public class MessageCoder
     {

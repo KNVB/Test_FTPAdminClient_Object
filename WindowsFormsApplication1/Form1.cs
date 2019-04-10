@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using ObjectLibrary;
+using AdminServerObject;
 using System.Windows.Forms;
 using System.Collections.Generic;
 

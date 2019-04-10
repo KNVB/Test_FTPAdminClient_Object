@@ -1,4 +1,4 @@
-﻿namespace ObjectLibrary
+﻿namespace AdminServerObject
 {
     public class AccessRightEntry
     {
