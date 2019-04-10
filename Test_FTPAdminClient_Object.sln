@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{0ABFE75A-60B6-45AA-94EE-2B94CFC8AB4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectLibrary", "ObjectLibrary\ObjectLibrary.csproj", "{BD53FC41-7F7A-40BD-A2CD-B4EDFFC9FDAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminServerObject", "ObjectLibrary\AdminServerObject.csproj", "{BD53FC41-7F7A-40BD-A2CD-B4EDFFC9FDAF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79810162-3EE3-4257-A4CC-3A19D20BF797}"
 	ProjectSection(SolutionItems) = preProject
