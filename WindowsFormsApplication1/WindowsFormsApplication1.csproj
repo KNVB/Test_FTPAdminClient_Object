@@ -99,9 +99,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ObjectLibrary\AdminServerObject.csproj">
+    <ProjectReference Include="..\ObjectLibrary\ObjectLibrary.csproj">
       <Project>{bd53fc41-7f7a-40bd-a2cd-b4edffc9fdaf}</Project>
-      <Name>AdminServerObject</Name>
+      <Name>ObjectLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
