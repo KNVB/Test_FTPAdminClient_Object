@@ -8,20 +8,20 @@ namespace ObjectLibrary
 {
     public class FtpAdminClient
     {
-        internal SortedDictionary<string, AdminServer> adminServerList = new SortedDictionary<string, AdminServer>();
-        internal string lastServerKey = "";
+        private SortedDictionary<string, AdminServer> adminServerList = new SortedDictionary<string, AdminServer>();
+        private string lastServerKey = "";
         public FtpAdminClient()
         {
 
         }
-        internal void disconnectServer(string key)
+        public void disconnectServer(string key)
         {
             AdminServer adminServer;
             adminServer = adminServerList[key];
             adminServer.disConnect();
             adminServerList.Remove(key);
         }
-        internal void disconnectAllAdminServer()
+        public void disconnectAllAdminServer()
         {
             string[] keys = adminServerList.Keys.ToArray();
             for (int i = 0; i < keys.Length; i++)
@@ -30,7 +30,7 @@ namespace ObjectLibrary
             }
         }
 
-        internal int addRemoteServer(string adminServerName, int adminPortNo, string adminUserName, string adminUserPassword)
+        public int addRemoteServer(string adminServerName, int adminPortNo, string adminUserName, string adminUserPassword)
         {
             int result = 0;
             try
