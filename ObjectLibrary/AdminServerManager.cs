@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ObjectLibrary
 {
-    public class FtpAdminClient
+    public class AdminServerManager
     {
         private SortedDictionary<string, AdminServer> adminServerList = new SortedDictionary<string, AdminServer>();
         private string lastServerKey = "";
-        public FtpAdminClient()
+        public AdminServerManager()
         {
 
         }
