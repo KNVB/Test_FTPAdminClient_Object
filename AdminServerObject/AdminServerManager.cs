@@ -6,6 +6,7 @@ namespace AdminServerObject
     public class AdminServerManager
     {
         public SortedDictionary<string, AdminServer> adminServerList =new SortedDictionary<string, AdminServer>();
+        public string lastServerKey = "";
         public int addRemoteServer(string adminServerName,int adminPortNo,string adminUserName,string adminUserPassword)
         {
             int result = 0;
@@ -23,6 +24,7 @@ namespace AdminServerObject
                         if (adminServer.login(adminUserName, adminUserPassword))
                         {
                             adminServerList.Add(adminServerName + ":" + adminPortNo, adminServer);
+                            lastServerKey = adminServerName + ":" + adminPortNo;
                         }
                         else
                             result = 3;
@@ -48,10 +50,18 @@ namespace AdminServerObject
         }
         public void disconnectAllAdminServer()
         {
-            foreach(string key in adminServerList.Keys)
+            List<string> keys = new List<string>();
+            
+            foreach (string key in adminServerList.Keys)
+            {
+                keys.Add(key); 
+            }
+            foreach (string key in keys)
             {
                 disconnectServer(key);
             }
+            keys.Clear();
+            keys = null;
         }
     }
 }
