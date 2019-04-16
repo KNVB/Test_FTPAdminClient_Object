@@ -7,7 +7,7 @@ namespace AdminServerObject
     {
         public SortedDictionary<string, AdminServer> adminServerList =new SortedDictionary<string, AdminServer>();
         public string lastServerKey = "";
-        public int addRemoteServer(string adminServerName,int adminPortNo,string adminUserName,string adminUserPassword)
+        public int addAdminServer(string adminServerName,int adminPortNo,string adminUserName,string adminUserPassword)
         {
             int result = 0;
             try
