@@ -9,6 +9,6 @@ namespace AdminServerObject
     public class Request
     {
         public string action { get; set; }
-        public Dictionary<String, Object> Objects { get; set; } = new Dictionary<string, object>();
+        public Dictionary<String, Object> ObjectMap { get; set; } = new Dictionary<string, object>();
     }
 }

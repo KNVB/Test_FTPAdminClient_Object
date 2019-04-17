@@ -38,7 +38,18 @@ namespace AdminServerObject
             Request request = new Request();
             ServerResponse response=null;
             request.action = "AddFtpServer";
-            request.Objects["ftpServerInfo"] = ftpServerInfo;
+            List<string> bindingAddresses = new List<string>();
+            foreach (string address in ftpServerInfo.bindingAddresses)
+            {
+                if (address.Equals("*(All IP address)"))
+                {
+                    bindingAddresses.Add("*");
+                }
+                else
+                    bindingAddresses.Add(address);
+            }
+            ftpServerInfo.bindingAddresses = bindingAddresses;
+            request.ObjectMap["ftpServerInfo"] = ftpServerInfo;
             _websocket.Send(messageCoder.aesEncode(jss.Serialize(request)));
             _messageReceivedEvent.WaitOne();
             if (String.IsNullOrEmpty(errorMessage))

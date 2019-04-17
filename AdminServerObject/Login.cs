@@ -8,8 +8,8 @@ namespace AdminServerObject
 {
     class Login
     {
-        public string action="Login";
-		public string userName { get; set; }
+        //public string action = "Login";
+        public string userName { get; set; }
 		public string password{ get; set; }
     }
 }
