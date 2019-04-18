@@ -63,6 +63,7 @@
     <Compile Include="BindingAddress.cs" />
     <Compile Include="FtpAdminUserInfo.cs" />
     <Compile Include="FtpServerInfo.cs" />
+    <Compile Include="FtpServerStatus.cs" />
     <Compile Include="FtpUserInfo.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="MessageCoder.cs" />
